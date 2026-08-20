@@ -155,16 +155,16 @@ app = FastAPI(
 )
 
 # ── CORS ──────────────────────────────────────────────────────────────────────
-# Add your production frontend URL to this list after deployment
 _ALLOWED_ORIGINS = [
     "http://localhost:5173",    # Vite dev server
     "http://localhost:3000",    # CRA / Next.js dev fallback
-    # "https://your-production-frontend.com",  # ← update before going live
+    "https://YOUR-APP.vercel.app",  # Production Vercel domain placeholder
 ]
 
 app.add_middleware(
     CORSMiddleware,
     allow_origins=_ALLOWED_ORIGINS,
+    allow_origin_regex=r"https://.*\.vercel\.app",  # Automatically allows all Vercel prod & preview deployments
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -175,6 +175,7 @@ app.add_middleware(
         "X-Skipped-Rows",
     ],
 )
+
 
 
 
