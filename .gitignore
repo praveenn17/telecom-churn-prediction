@@ -1,0 +1,55 @@
+# ── Python & Virtual Environments ───────────────────────────────────────────
+.venv/
+venv/
+env/
+ENV/
+*.venv
+
+# Python bytecode & cache
+__pycache__/
+*/__pycache__/
+*/**/__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.pytest_cache/
+
+# ── Node & Frontend Build ──────────────────────────────────────────────────
+node_modules/
+*/node_modules/
+dist/
+*/dist/
+dist-ssr/
+build/
+.npm/
+
+# ── Environment & Secrets ───────────────────────────────────────────────────
+.env
+.env.local
+.env.*.local
+frontend/.env
+*.pem
+*.key
+
+# ── Datasets & Large Data Files ─────────────────────────────────────────────
+ml/data/*.csv
+*.csv
+
+# Keep directory tracking files and example templates
+!ml/data/README.txt
+!frontend/.env.example
+
+# ── ML Artifacts (DO NOT IGNORE - required for backend deployment) ──────────
+!ml/model.pkl
+!ml/feature_schema.json
+!ml/feature_importance.json
+!ml/shap_summary.png
+
+# ── Operating System & Editors ──────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+.idea/
+.vscode/
+*.swp
+*.swo

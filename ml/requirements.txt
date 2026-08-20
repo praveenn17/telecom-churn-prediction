@@ -1,0 +1,12 @@
+# ── Churn Prediction ML Pipeline ── requirements.txt ──────────────────────────
+# Python 3.11 required
+# Install with: pip install -r requirements.txt
+
+pandas==2.2.3
+numpy==2.1.0
+scikit-learn==1.5.2
+xgboost==2.1.1
+joblib==1.4.2
+tabulate==0.9.0      # pretty console tables
+shap==0.46.0         # SHAP explainability (NumPy 2.x compatible)
+matplotlib==3.9.2    # required by shap.summary_plot
