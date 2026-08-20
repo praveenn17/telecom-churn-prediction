@@ -97,7 +97,7 @@ def _load_artifacts() -> None:
     _encoded_feat_names = [n.split("__", 1)[-1] for n in raw_feat_names]
 
     # Build a background sample for the explainer
-    # Priority: raw CSV → fall back to a zero-matrix if CSV not present
+    # Priority: raw CSV → fall back to a zero-matrix if CSV not present (e.g. on Render)
     if _DATA_PATH.exists():
         bg_df = pd.read_csv(_DATA_PATH)
         bg_df["TotalCharges"] = pd.to_numeric(bg_df["TotalCharges"], errors="coerce")
@@ -109,12 +109,10 @@ def _load_artifacts() -> None:
         background = preprocessor.transform(sample)
         print(f"[startup] Background sample: {background.shape[0]} rows from CSV")
     else:
-        # Fallback: use a single all-zeros row (LinearExplainer works with this)
-        n_features = preprocessor.transform(
-            pd.DataFrame([{c: 0 for c in _feature_schema["feature_names"]}])
-        ).shape[1]
-        background = np.zeros((1, n_features))
-        print("[startup] Background sample: zero matrix (CSV not found)")
+        # Fallback: zero-matrix based on encoded feature length (production / Render)
+        background = np.zeros((1, len(_encoded_feat_names)))
+        print(f"[startup] Background sample: zero matrix ({len(_encoded_feat_names)} features, CSV not present)")
+
 
     model_type = type(model).__name__
     tree_types = {"DecisionTreeClassifier", "RandomForestClassifier", "XGBClassifier"}
